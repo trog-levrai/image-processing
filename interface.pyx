@@ -1,12 +1,12 @@
 # distutils: language = c++
-# distutils: sources = color.cc
+# distutils: sources = src/color.cc
 
 from libcpp.string cimport string
 from libcpp.vector cimport vector
 from cython.operator cimport dereference as deref
 from PIL import Image
 
-cdef extern from "color.hh":
+cdef extern from "src/color.hh":
     cdef cppclass Color:
         Color() except +
         vector[unsigned char]* grayscale(const vector[unsigned char] &image)
