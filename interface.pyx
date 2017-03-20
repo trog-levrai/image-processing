@@ -1,26 +1,24 @@
 # distutils: language = c++
-# distutils: sources = src/color.cc
+# distutils: sources = src/haar.cc
 
 from libcpp.string cimport string
 from libcpp.vector cimport vector
 from cython.operator cimport dereference as deref
 from PIL import Image
 
-cdef extern from "src/color.hh":
-    cdef cppclass Color:
-        Color() except +
-        vector[unsigned char]* grayscale(const vector[unsigned char] &image)
+cdef extern from "src/haar.hh":
+    cdef cppclass Haar:
+        Haar() except +
+        Haar(vector[unsigned char]& img, size_t width, size_t height) except +
+        void genIntegral()
 
-def cppCall():
-    cdef Color color
-    im = Image.open("tests/antilope.jpeg")
+def processImage(path):
+    cdef Haar haar
+    im = Image.open(path)
     data = []
     for i in list(im.getdata()):
         for j in i:
             data.append(j)
-    gray = color.grayscale(data)
-    #Mode L is for 8bits grayscale
-    grey = Image.new('L', im.size)
-    grey.putdata(deref(gray))
-    grey.show()
-    del gray
+    haar = Haar(data, im.width, im.height)
+    haar.genIntegral()
+    im.show()

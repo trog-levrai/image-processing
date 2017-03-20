@@ -2,4 +2,4 @@
 
 import interface
 
-interface.cppCall()
+interface.processImage("tests/white.png")
