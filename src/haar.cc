@@ -1,5 +1,10 @@
 #include "haar.hh"
 
+Haar::~Haar() {
+    for (auto feature: features_)
+        delete feature;
+}
+
 std::shared_ptr<std::vector<size_t>> Haar::grayscale(const std::vector<unsigned char> &img) {
     auto ans = std::make_shared<std::vector<size_t>>(img.size() / 3);
 
@@ -32,7 +37,7 @@ void Haar::genIntegral() {
             (*integral_)[getPos(i, j)] += (*integral_)[getPos(i, j - 1)];
         }
     }
-
+    features_.push_back(new Vertical(integral_, width_));
 }
 
 void Haar::execHaar(size_t x, size_t y, size_t size) {

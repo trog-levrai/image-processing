@@ -7,19 +7,19 @@
 
 class Feature {
     public:
-        Feature(size_t x, size_t y, size_t size, size_t width)
-        : x_(x)
-        , y_(y)
-        , size_(size)
+        Feature(std::shared_ptr<std::vector<size_t>> integral, size_t width)
+        : integral_(integral)
         , width_(width)
         { }
 
         Feature() { }
 
-        ssize_t getValue(std::shared_ptr<std::vector<size_t>> integral const) const = 0;
+        virtual ~Feature() = default;
+
+        virtual ssize_t getValue(size_t x, size_t y, size_t size) const = 0;
 
     private:
-        size_t x_, y_, size_, width_;
-
+        std::shared_ptr<std::vector<size_t>> integral_;
+        size_t width_;
         size_t getPos(size_t x, size_t y);
 };

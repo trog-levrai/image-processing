@@ -5,6 +5,9 @@
 #include <vector>
 #include <memory>
 
+#include "feature.hh"
+#include "vertical.hh"
+
 #define MIN_SIZE 24
 #define RATIO 1.25
 #define SHIFT 0.5
@@ -15,9 +18,12 @@ class Haar {
         : img_(img)
         , width_(width)
         , height_(height)
+        , features_(std::vector<Feature*>())
         { }
 
         Haar() {}
+
+        ~Haar();
 
         void genIntegral();
 
@@ -29,8 +35,10 @@ class Haar {
         void scanLine(size_t size, size_t j);
         size_t getPos(size_t x, size_t y);
         std::shared_ptr<std::vector<size_t>> grayscale(const std::vector<unsigned char>&);
+
         std::vector<unsigned char> img_;
-        std::shared_ptr<std::vector<size_t>> integral_;
         size_t width_;
         size_t height_;
+        std::vector<Feature*> features_;
+        std::shared_ptr<std::vector<size_t>> integral_;
 };
