@@ -47,21 +47,22 @@ void Haar::genIntegral() {
 
 void Haar::execHaar(size_t x, size_t y, size_t size) {
     //Call on Haar's features
+    for (auto feature: features_)
+        feature->getValue(x, y, size);
 }
 
-void Haar::scanLine(size_t size, size_t j) {
-    for (size_t i = 0; i < width_ / size; ++i) {
-        execHaar(i * size, j * size, size);
-    }
+void Haar::scanLine(size_t size, size_t y) {
+    for (size_t i = 0; i < width_ / size; ++i)
+        execHaar(i * size, y, size);
     if (width_ % size != 0)
-        execHaar(width_ - size, j * size, size);
+        execHaar(width_ - size, y, size);
 }
 
 void Haar::scanImage() {
     for (size_t size = MIN_SIZE; size < width_ && size < height_; size *= RATIO) {
         //OpenMP here
         for (size_t j = 0; j < height_ / size; ++j) {
-            scanLine(size, j);
+            scanLine(size, j * size);
         }
         if (height_ % size != 0)
             scanLine(size, height_ - size);

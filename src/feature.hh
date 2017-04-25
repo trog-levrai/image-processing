@@ -18,8 +18,8 @@ class Feature {
 
         virtual ssize_t getValue(size_t x, size_t y, size_t size) const = 0;
 
-    private:
+    protected:
         std::shared_ptr<std::vector<size_t>> integral_;
         size_t width_;
-        size_t getPos(size_t x, size_t y);
+        size_t getPos(size_t x, size_t y) const;
 };

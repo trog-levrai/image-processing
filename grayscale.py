@@ -2,4 +2,4 @@
 
 import interface
 
-interface.processImage("tests/white.png")
+interface.processImage("tests/antilope.jpeg")

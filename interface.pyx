@@ -1,5 +1,5 @@
 # distutils: language = c++
-# distutils: sources = src/haar.cc
+# distutils: sources = src/haar.cc src/horizontal.cc src/vertical.cc src/feature.cc
 
 from libcpp.string cimport string
 from libcpp.vector cimport vector
@@ -11,6 +11,7 @@ cdef extern from "src/haar.hh":
         Haar() except +
         Haar(vector[unsigned char]& img, size_t width, size_t height) except +
         void genIntegral()
+        void scanImage()
 
 def processImage(path):
     cdef Haar haar
@@ -21,4 +22,5 @@ def processImage(path):
             data.append(j)
     haar = Haar(data, im.width, im.height)
     haar.genIntegral()
+    haar.scanImage()
     im.show()
