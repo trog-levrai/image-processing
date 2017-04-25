@@ -1,6 +1,8 @@
 #include "haar.hh"
 
 Haar::~Haar() {
+
+    //Deletion of used features
     for (auto feature: features_)
         delete feature;
 }
@@ -37,7 +39,10 @@ void Haar::genIntegral() {
             (*integral_)[getPos(i, j)] += (*integral_)[getPos(i, j - 1)];
         }
     }
+
+    //Instantiation of all features
     features_.push_back(new Vertical(integral_, width_));
+    features_.push_back(new Horizontal(integral_, width_));
 }
 
 void Haar::execHaar(size_t x, size_t y, size_t size) {

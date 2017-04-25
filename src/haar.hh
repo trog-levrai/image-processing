@@ -7,6 +7,7 @@
 
 #include "feature.hh"
 #include "vertical.hh"
+#include "horizontal.hh"
 
 #define MIN_SIZE 24
 #define RATIO 1.25
