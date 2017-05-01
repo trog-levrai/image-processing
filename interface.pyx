@@ -22,7 +22,6 @@ def processImage(path):
     for i in list(im.getdata()):
         for j in i:
             data.append(j)
-    print("BAr")
     haar = Haar(data, im.width, im.height)
     haar.genIntegral()
     haar.scanImage()

@@ -5,7 +5,6 @@ Haar::~Haar() {
     //Deletion of used features
     for (auto feature: features_)
         delete feature;
-    delete values_;
 }
 
 std::shared_ptr<std::vector<size_t>> Haar::grayscale(const std::vector<unsigned char> &img) {
@@ -83,6 +82,8 @@ std::vector<std::vector<size_t>>* Haar::getValues() {
 }
 
 void Haar::learn() {
+    if (width_ != height_)
+        std::cerr << "Width and height are different!" << std::endl;
     values_ = new std::vector<std::vector<size_t>>();
     execHaar(0, 0, width_);
 }
