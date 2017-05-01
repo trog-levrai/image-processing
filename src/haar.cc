@@ -80,3 +80,8 @@ void Haar::scanImage() {
 std::vector<std::vector<long>>* Haar::getValues() {
     return values_;
 }
+
+void Haar::learn() {
+    values_ = new std::vector<std::vector<long>>();
+    execHaar(0, 0, width_);
+}

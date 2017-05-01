@@ -30,6 +30,8 @@ class Haar {
 
         void scanImage();
 
+        void learn();
+
         std::vector<std::vector<long>>* getValues();
 
     private:
