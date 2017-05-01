@@ -5,6 +5,7 @@ Haar::~Haar() {
     //Deletion of used features
     for (auto feature: features_)
         delete feature;
+    delete values_;
 }
 
 std::shared_ptr<std::vector<size_t>> Haar::grayscale(const std::vector<unsigned char> &img) {
