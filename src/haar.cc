@@ -46,9 +46,16 @@ void Haar::genIntegral() {
 }
 
 void Haar::execHaar(size_t x, size_t y, size_t size) {
+    auto res = std::vector<long>(3);
+    res[0] = x;
+    res[1] = y;
+    res[2] = size;
     //Call on Haar's features
     for (auto feature: features_)
-        feature->getValue(x, y, size);
+        res.push_back(feature->getValue(x, y, size));
+
+    #pragma omp critical
+    values_->push_back(res);
 }
 
 void Haar::scanLine(size_t size, size_t y) {
@@ -59,6 +66,7 @@ void Haar::scanLine(size_t size, size_t y) {
 }
 
 void Haar::scanImage() {
+    values_ = new std::vector<std::vector<long>>();
     for (size_t size = MIN_SIZE; size < width_ && size < height_; size *= RATIO) {
         //OpenMP here
         for (size_t j = 0; j < height_ / size; ++j) {
@@ -67,4 +75,8 @@ void Haar::scanImage() {
         if (height_ % size != 0)
             scanLine(size, height_ - size);
     }
+}
+
+std::vector<std::vector<long>>* Haar::getValues() {
+    return values_;
 }

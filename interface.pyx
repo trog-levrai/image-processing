@@ -12,6 +12,7 @@ cdef extern from "src/haar.hh":
         Haar(vector[unsigned char]& img, size_t width, size_t height) except +
         void genIntegral()
         void scanImage()
+        vector[vector[long]]* getValues()
 
 def processImage(path):
     cdef Haar haar
@@ -23,4 +24,5 @@ def processImage(path):
     haar = Haar(data, im.width, im.height)
     haar.genIntegral()
     haar.scanImage()
+    values = deref(haar.getValues())
     im.show()
