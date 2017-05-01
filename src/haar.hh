@@ -32,7 +32,7 @@ class Haar {
 
         void learn();
 
-        std::vector<std::vector<long>>* getValues();
+        std::vector<std::vector<size_t>>* getValues();
 
     private:
 
@@ -45,6 +45,6 @@ class Haar {
         size_t width_;
         size_t height_;
         std::vector<Feature*> features_;
-        std::vector<std::vector<long>>* values_;
+        std::vector<std::vector<size_t>>* values_;
         std::shared_ptr<std::vector<size_t>> integral_;
 };

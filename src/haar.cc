@@ -46,7 +46,7 @@ void Haar::genIntegral() {
 }
 
 void Haar::execHaar(size_t x, size_t y, size_t size) {
-    auto res = std::vector<long>(3);
+    auto res = std::vector<size_t>(3);
     res[0] = x;
     res[1] = y;
     res[2] = size;
@@ -66,7 +66,7 @@ void Haar::scanLine(size_t size, size_t y) {
 }
 
 void Haar::scanImage() {
-    values_ = new std::vector<std::vector<long>>();
+    values_ = new std::vector<std::vector<size_t>>();
     for (size_t size = MIN_SIZE; size < width_ && size < height_; size *= RATIO) {
         //OpenMP here
         for (size_t j = 0; j < height_ / size; ++j) {
@@ -77,11 +77,11 @@ void Haar::scanImage() {
     }
 }
 
-std::vector<std::vector<long>>* Haar::getValues() {
+std::vector<std::vector<size_t>>* Haar::getValues() {
     return values_;
 }
 
 void Haar::learn() {
-    values_ = new std::vector<std::vector<long>>();
+    values_ = new std::vector<std::vector<size_t>>();
     execHaar(0, 0, width_);
 }
