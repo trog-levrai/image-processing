@@ -17,7 +17,7 @@ cdef extern from "src/haar.hh":
 
 def processImage(path):
     cdef Haar haar
-    im = Image.open(path)
+    im = Image.open(path).convert('RGB')
     data = []
     for i in list(im.getdata()):
         for j in i:
@@ -30,7 +30,7 @@ def processImage(path):
 
 def get_features(path):
     cdef Haar haar
-    im = Image.open(path)
+    im = Image.open(path).convert('RGB')
     data = []
     for i in list(im.getdata()):
         for j in i:
