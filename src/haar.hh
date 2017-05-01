@@ -30,6 +30,8 @@ class Haar {
 
         void scanImage();
 
+        std::vector<std::vector<long>>* getValues();
+
     private:
 
         void execHaar(size_t x, size_t y, size_t size);
@@ -41,5 +43,6 @@ class Haar {
         size_t width_;
         size_t height_;
         std::vector<Feature*> features_;
+        std::vector<std::vector<long>>* values_;
         std::shared_ptr<std::vector<size_t>> integral_;
 };
