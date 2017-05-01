@@ -7,6 +7,8 @@ import interface
 
 rootdir ='tests/cut'
 
+out = open('dataset.csv', 'w')
+out.write('name\n')
 for subdir, dirs, files in os.walk(rootdir):
     for file in files:
-        print(file)
+        out.write(file + '\n')
