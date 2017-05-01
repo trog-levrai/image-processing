@@ -12,3 +12,5 @@ out.write('name\n')
 for subdir, dirs, files in os.walk(rootdir):
     for file in files:
         out.write(file + '\n')
+        vect = interface.get_features(rootdir + '/' + file)
+        print(vect)

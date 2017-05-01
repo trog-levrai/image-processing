@@ -26,3 +26,15 @@ def processImage(path):
     haar.scanImage()
     values = deref(haar.getValues())
     im.show()
+
+def get_features(path):
+    cdef Haar haar
+    im = Image.open(path)
+    data = []
+    for i in list(im.getdata()):
+        for j in i:
+            data.append(j)
+    haar = Haar(data, im.width, im.height)
+    haar.genIntegral()
+    haar.scanImage()
+    return deref(haar.getValues())
