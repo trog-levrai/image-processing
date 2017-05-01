@@ -68,7 +68,7 @@ void Haar::scanLine(size_t size, size_t y) {
 void Haar::scanImage() {
     values_ = new std::vector<std::vector<size_t>>();
     for (size_t size = MIN_SIZE; size < width_ && size < height_; size *= RATIO) {
-        //OpenMP here
+        #pragma omp parallel for
         for (size_t j = 0; j < height_ / size; ++j) {
             scanLine(size, j * size);
         }
