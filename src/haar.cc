@@ -48,29 +48,7 @@ void Haar::genIntegral() {
         std::cout << std::endl;
     }*/
 
-    size_t sub_x = 10;
-    size_t sub_y = 10;
-    float ratio = 1.25;
-
-    while (sub_x != height_ && sub_y != height_)
-    {
-        for (size_t i = 0; i < height_ - sub_y; i += ratio * sub_x)
-        {
-            for (int j = 0; j < width_ - sub_x; j += ratio * sub_y)
-            {
-                //std::cout << i << " " << j << " " << sub_x << std::endl;
-                //FIXME
-                features_.push_back(new Vertical(integral_, width_));
-                //FIXME
-                features_.push_back(new Horizontal(integral_, width_));
-            }
-        }
-        sub_x *= ratio;
-        sub_y *= ratio;
-
-        sub_x = sub_x > height_ ? height_ : sub_x;
-        sub_y = sub_y > width_ ? width_ : sub_y;
-    }
+    
 
     //Instantiation of all features
     features_.push_back(new Vertical(integral_, width_));
@@ -84,10 +62,28 @@ void Haar::execHaar(size_t x, size_t y, size_t size) {
     res[1] = y;
     res[2] = size;
     //Call on Haar's features
-    for (auto feature: features_)
-        res.push_back(feature->getValue(x, y, size));
 
-    std::cout << res[1] << " " << res[0];
+    size_t sub_x = 5;
+    size_t sub_y = 5;
+    float ratio = 1.25;
+
+    while (sub_x != height_ && sub_y != height_)
+    {
+        for (size_t i = 0; i < height_ - sub_y; i += ratio * sub_x)
+        {
+            for (int j = 0; j < width_ - sub_x; j += ratio * sub_y)
+            {
+                for (auto feature: features_)
+                    res.push_back(feature->getValue(i, j, sub_x));
+                std::cout << i << " " << j << " " << sub_x << std::endl;
+            }
+        }
+        sub_x *= ratio;
+        sub_y *= ratio;
+
+        sub_x = sub_x > height_ ? height_ : sub_x;
+        sub_y = sub_y > width_ ? width_ : sub_y;
+    }    
 
     #pragma omp critical
     values_->push_back(res);

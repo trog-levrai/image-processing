@@ -1,5 +1,5 @@
 # distutils: language = c++
-# distutils: sources = src/haar.cc src/horizontal.cc src/vertical.cc src/feature.cc
+# distutils: sources = src/haar.cc src/horizontal.cc src/vertical.cc src/feature.cc src/tools.cc
 
 from libcpp.string cimport string
 from libcpp.vector cimport vector
@@ -30,7 +30,7 @@ def processImage(path):
 
 def get_features(path):
     cdef Haar haar
-    im = Image.open(path).convert('RGB')
+    im = Image.open(path).convert('RGB').resize((25, 25), Image.NEAREST)
     data = []
     for i in list(im.getdata()):
         for j in i:
